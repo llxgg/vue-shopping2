@@ -10,14 +10,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import '../static/reset.css';
 
-Vue.config.productionTip = false;
-Vue.use(ElementUI);
-
 
 // axios:
 import Axios from 'axios';
+
+Vue.config.productionTip = false;
+Vue.use(ElementUI);
 Vue.prototype.axios = Axios;
-Axios.defaults.baseURL = 'http://location:8888/api/private/v1/';
+Axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 /* eslint-disable no-new */

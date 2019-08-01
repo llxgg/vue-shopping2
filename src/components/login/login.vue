@@ -26,7 +26,7 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: ''
+        password: '',
       },
       loginFormRules: {
         username: [
@@ -40,19 +40,38 @@ export default {
   },
   methods: {
     // 登录：
-    async submitForm(){
-      const res = await this.axios({
-        type:'POST',
-        url:'login',
-        data:this.loginForm
+    submitForm() {
+      this.$refs.loginFormRef.validate((valid) => {
+        if (valid) {
+          this.axios({
+            method: 'post',
+            url: 'login',
+            data: {
+              username: this.loginForm.username,
+              password: this.loginForm.password,
+            },
+          }).then((res) => {
+            console.log(res);
+            const {data,meta:{status,msg}} = res.data;
+            if(status === 200){
+              // 保存token 到 sessionStorage
+              sessionStorage.setItem('token',data.token);
+              // 登录成功
+              this.$message.success(msg);
+              // 跳转到首页：
+              this.$router.push({name:'home'});
+            }else {
+              this.$message.error(msg);
+            }
+          });
+        }
       });
-      console.log(res);
     },
 
     // 重置表单
-    resetForm(){
+    resetForm() {
       this.$refs.loginFormRef.resetFields();
-    }
+    },
   },
 };
 </script>
