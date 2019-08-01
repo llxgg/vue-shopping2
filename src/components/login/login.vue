@@ -52,15 +52,15 @@ export default {
             },
           }).then((res) => {
             console.log(res);
-            const {data,meta:{status,msg}} = res.data;
-            if(status === 200){
+            const { data, meta: { status, msg } } = res.data;
+            if (status === 200) {
               // 保存token 到 sessionStorage
-              sessionStorage.setItem('token',data.token);
+              sessionStorage.setItem('token', data.token);
               // 登录成功
               this.$message.success(msg);
               // 跳转到首页：
-              this.$router.push({name:'home'});
-            }else {
+              this.$router.push({ name: 'home' });
+            } else {
               this.$message.error(msg);
             }
           });
